@@ -268,7 +268,7 @@ private
 
   def exit_with_error!(message)
     display("Gah! " + message)
-    exit
+    exit 1
   end
 
   def display(message)

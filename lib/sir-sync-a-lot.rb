@@ -244,7 +244,7 @@ private
     display("Pushing #{file[:path]}...")
     AWS::S3::S3Object.store(file[:path], open(file[:path]), read_config[:aws_dest_bucket])
   rescue
-    display("ERROR: Could not push '#{file[:path]}': #{$!.inspect}")
+    log_error("ERROR: Could not push '#{file[:path]}': #{$!.inspect}")
   end
 
   def aquire_lock!
@@ -267,12 +267,16 @@ private
   end
 
   def exit_with_error!(message)
-    display("Gah! " + message)
+    log_error("Gah! " + message)
     exit 1
   end
 
-  def display(message)
-    puts("[#{Time.now}] #{message}")
+  def display(message, target=$stdout)
+    target.puts("[#{Time.now}] #{message}")
+  end
+
+  def log_error(message)
+    display(message, $stderr)
   end
 
   def ask(question)

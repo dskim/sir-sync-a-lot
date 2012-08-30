@@ -1,5 +1,6 @@
 require 'aws/s3'
 require 'yaml'
+require_relative 'aws-s3-exceptions'
 
 class SirSyncalot
   def self.run!(*args)
